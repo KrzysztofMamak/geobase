@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geobase/application/auth/auth_bloc.dart';
 import 'package:geobase/application/sign_in_form/sign_in_form_bloc.dart';
+import 'package:geobase/domain/core/validators.dart';
 import 'package:geobase/presentation/routes/router.gr.dart';
 
 class SignInForm extends StatelessWidget {
@@ -49,8 +50,9 @@ class SignInForm extends StatelessWidget {
                 onChanged: (value) => context
                     .read<SignInFormBloc>()
                     .add(SignInFormEvent.emailAddressChanged(value)),
-                validator: (_) =>
-                    context.read<SignInFormBloc>().state.emailAddress,
+                validator: (value) => Validators.isEmailAddressValid(value)
+                    ? null
+                    : 'Email address must be valid ',
               ),
               SizedBox(height: 8.0),
               TextFormField(
@@ -63,7 +65,9 @@ class SignInForm extends StatelessWidget {
                 onChanged: (value) => context
                     .read<SignInFormBloc>()
                     .add(SignInFormEvent.passwordChanged(value)),
-                validator: (_) => context.read<SignInFormBloc>().state.password,
+                validator: (value) => Validators.isPasswordValid(value)
+                    ? null
+                    : 'Password must have at least 6 characters',
               ),
               SizedBox(height: 8.0),
               FlatButton(
@@ -80,7 +84,8 @@ class SignInForm extends StatelessWidget {
                 color: Colors.blue,
               ),
               FlatButton(
-                onPressed: () => ExtendedNavigator.of(context).pushForgotPasswordPage(),
+                onPressed: () =>
+                    ExtendedNavigator.of(context).pushForgotPasswordPage(),
                 child: Text('FORGOT PASSWORD'),
                 color: Colors.blue,
               ),
