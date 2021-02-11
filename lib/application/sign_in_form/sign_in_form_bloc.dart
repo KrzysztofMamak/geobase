@@ -31,7 +31,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
       },
       passwordChanged: (e) async* {
         yield state.copyWith(
-          emailAddress: e.password,
+          password: e.password,
           authFailureOrSuccessOption: none(),
         );
       },
@@ -40,6 +40,9 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         final isEmailAddressValid =
             Validators.isEmailAddressValid(state.emailAddress);
         final isPasswordValid = Validators.isPasswordValid(state.password);
+
+        print('email: ${state.emailAddress} $isEmailAddressValid');
+        print('password: ${state.password} $isPasswordValid');
 
         if (isEmailAddressValid && isPasswordValid) {
           yield state.copyWith(

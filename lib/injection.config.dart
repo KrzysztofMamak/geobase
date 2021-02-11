@@ -42,7 +42,7 @@ GetIt $initGetIt(
   gh.lazySingleton<IGeoTaskRepository>(
       () => GeoTaskRepository(get<FirebaseFirestore>()));
   gh.factory<SignInFormBloc>(() => SignInFormBloc(get<IAuthFacade>()));
-  gh.factory<SignUpFormBloc>(() => SignUpFormBloc());
+  gh.factory<SignUpFormBloc>(() => SignUpFormBloc(get<IAuthFacade>()));
   gh.factory<AuthBloc>(() => AuthBloc(get<IAuthFacade>()));
   gh.factory<GeoTaskActorBloc>(
       () => GeoTaskActorBloc(get<IGeoTaskRepository>()));

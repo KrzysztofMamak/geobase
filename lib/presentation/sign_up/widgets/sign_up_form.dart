@@ -3,14 +3,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geobase/application/auth/auth_bloc.dart';
-import 'package:geobase/application/sign_in_form/sign_in_form_bloc.dart';
+import 'package:geobase/application/sign_up_form/sign_up_form_bloc.dart';
 import 'package:geobase/domain/core/validators.dart';
 import 'package:geobase/presentation/routes/router.gr.dart';
 
-class SignInForm extends StatelessWidget {
+class SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignInFormBloc, SignInFormState>(
+    return BlocConsumer<SignUpFormBloc, SignUpFormState>(
       listener: (context, state) {
         state.authFailureOrSuccessOption.fold(
           () {},
@@ -26,11 +26,11 @@ class SignInForm extends StatelessWidget {
               ).show(context);
             },
             (_) {
-              ExtendedNavigator.of(context)
-                  .replace(Routes.geoTasksOverviewPage);
-              context
-                  .read<AuthBloc>()
-                  .add(const AuthEvent.authCheckRequested());
+              // ExtendedNavigator.of(context)
+              //     .replace(Routes.geoTasksOverviewPage);
+              // context
+              //     .read<AuthBloc>()
+              //     .add(const AuthEvent.authCheckRequested());
             },
           ),
         );
@@ -48,8 +48,8 @@ class SignInForm extends StatelessWidget {
                 ),
                 autocorrect: false,
                 onChanged: (value) => context
-                    .read<SignInFormBloc>()
-                    .add(SignInFormEvent.emailAddressChanged(value)),
+                    .read<SignUpFormBloc>()
+                    .add(SignUpFormEvent.emailAddressChanged(value)),
                 validator: (value) => Validators.isEmailAddressValid(value)
                     ? null
                     : 'Email address must be valid ',
@@ -63,8 +63,23 @@ class SignInForm extends StatelessWidget {
                 autocorrect: false,
                 obscureText: true,
                 onChanged: (value) => context
-                    .read<SignInFormBloc>()
-                    .add(SignInFormEvent.passwordChanged(value)),
+                    .read<SignUpFormBloc>()
+                    .add(SignUpFormEvent.passwordChanged(value)),
+                validator: (value) => Validators.isPasswordValid(value)
+                    ? null
+                    : 'Password must have at least 6 characters',
+              ),
+              SizedBox(height: 8.0),
+              TextFormField(
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.lock),
+                  labelText: 'Repeat password',
+                ),
+                autocorrect: false,
+                obscureText: true,
+                onChanged: (value) => context
+                    .read<SignUpFormBloc>()
+                    .add(SignUpFormEvent.repeatedPasswordChanged(value)),
                 validator: (value) => Validators.isPasswordValid(value)
                     ? null
                     : 'Password must have at least 6 characters',
@@ -72,22 +87,9 @@ class SignInForm extends StatelessWidget {
               SizedBox(height: 8.0),
               FlatButton(
                 onPressed: () => context
-                    .read<SignInFormBloc>()
-                    .add(SignInFormEvent.signInWithEmailAndPasswordPressed()),
+                    .read<SignUpFormBloc>()
+                    .add(SignUpFormEvent.registerWithEmailAndPasswordPressed()),
                 child: const Text('SIGN IN'),
-                color: Colors.blue,
-              ),
-              SizedBox(height: 8.0),
-              FlatButton(
-                onPressed: () => ExtendedNavigator.of(context).pushSignUpPage(),
-                child: Text('SIGN UP'),
-                color: Colors.blue,
-              ),
-              SizedBox(height: 8.0),
-              FlatButton(
-                onPressed: () =>
-                    ExtendedNavigator.of(context).pushForgotPasswordPage(),
-                child: Text('FORGOT PASSWORD'),
                 color: Colors.blue,
               ),
             ],
