@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "429478070869",
+    "project_id": "geobase-2",
+    "storage_bucket": "geobase-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429478070869:android:93ddf101c98e26c425a2dc",
+        "android_client_info": {
+          "package_name": "com.example.geobase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429478070869-46curd40slvfguclni2ae2ian20521lc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.geobase",
+            "certificate_hash": "9f01465a5e44e6f116c68b607509b7fad927fffc"
+          }
+        },
+        {
+          "client_id": "429478070869-mj4rph6rj8d8r1kv8abrnviro2u40mm7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqyR8sn-TZ7V3yjQauTqY8kAgm0Dy1wKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "429478070869-mj4rph6rj8d8r1kv8abrnviro2u40mm7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
