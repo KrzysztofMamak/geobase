@@ -65,20 +65,24 @@ class SignInForm extends StatelessWidget {
                     .add(SignInFormEvent.passwordChanged(value)),
                 validator: (_) => context.read<SignInFormBloc>().state.password,
               ),
+              SizedBox(height: 8.0),
               FlatButton(
                 onPressed: () => context
                     .read<SignInFormBloc>()
                     .add(SignInFormEvent.signInWithEmailAndPasswordPressed()),
                 child: const Text('SIGN IN'),
+                color: Colors.blue,
               ),
               SizedBox(height: 8.0),
               FlatButton(
                 onPressed: () => ExtendedNavigator.of(context).pushSignUpPage(),
                 child: Text('SIGN UP'),
+                color: Colors.blue,
               ),
               FlatButton(
                 onPressed: () => ExtendedNavigator.of(context).pushForgotPasswordPage(),
                 child: Text('FORGOT PASSWORD'),
+                color: Colors.blue,
               ),
             ],
           ),
