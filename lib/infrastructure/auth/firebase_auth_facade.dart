@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:geobase/domain/auth/auth_failure.dart';
 import 'package:geobase/domain/auth/i_auth_facade.dart';
-import 'package:geobase/domain/core/validators.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IAuthFacade)
@@ -30,7 +29,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       );
       return right(unit);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
+      if (e.code == 'email-already-in-use') {
         return left(const AuthFailure.emailAlreadyInUse());
       } else {
         return left(const AuthFailure.serverError());
@@ -50,8 +49,8 @@ class FirebaseAuthFacade implements IAuthFacade {
       );
       return right(unit);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'ERROR_WRONG_PASSWORD' ||
-          e.code == 'ERROR_USER_NOT_FOUND') {
+      if (e.code == 'wrong-password' ||
+          e.code == 'user-not-found') {
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
       } else {
         return left(const AuthFailure.serverError());
@@ -67,7 +66,9 @@ class FirebaseAuthFacade implements IAuthFacade {
       await _firebaseAuth.sendPasswordResetEmail(email: emailAddress);
       return right(unit);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'ERROR_EMAIL_NOT_EXIST') {
+      print('eeeeeeeeeeeeeeeeeeeeecodeeeeeeeeeeeee ${e.code}');
+      if (e.code == 'user-not-found') {
+        print('f4qf4awgbrabrahtnaaaaaaaaaaaaaaaaaaaaaa');
         return left(const AuthFailure.emailNotExist());
       } else {
         return left(const AuthFailure.serverError());
