@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:geobase/domain/auth/auth_failure.dart';
 import 'package:geobase/domain/auth/i_auth_facade.dart';
+import 'package:geobase/domain/core/validators.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IAuthFacade)
@@ -52,6 +53,22 @@ class FirebaseAuthFacade implements IAuthFacade {
       if (e.code == 'ERROR_WRONG_PASSWORD' ||
           e.code == 'ERROR_USER_NOT_FOUND') {
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, Unit>> sendPasswordResetEmail({
+    String emailAddress,
+  }) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: emailAddress);
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'ERROR_EMAIL_NOT_EXIST') {
+        return left(const AuthFailure.emailNotExist());
       } else {
         return left(const AuthFailure.serverError());
       }

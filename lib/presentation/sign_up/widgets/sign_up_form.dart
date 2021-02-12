@@ -22,22 +22,23 @@ class SignUpForm extends StatelessWidget {
                   emailAlreadyInUse: (_) => 'Email already in use',
                   invalidEmailAndPasswordCombination: (_) =>
                       'Invalid email address and password combination',
+                  emailNotExist: (_) => '',
                 ),
               ).show(context);
             },
-            (_) {
-              // ExtendedNavigator.of(context)
-              //     .replace(Routes.geoTasksOverviewPage);
-              // context
-              //     .read<AuthBloc>()
-              //     .add(const AuthEvent.authCheckRequested());
+            (success) {
+              FlushbarHelper.createSuccess(
+                      message: 'Your account has been created')
+                  .show(context);
             },
           ),
         );
       },
       builder: (context, state) {
         return Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: state.showErrorMessages
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
           child: ListView(
             padding: const EdgeInsets.all(8.0),
             children: [
@@ -52,7 +53,7 @@ class SignUpForm extends StatelessWidget {
                     .add(SignUpFormEvent.emailAddressChanged(value)),
                 validator: (value) => Validators.isEmailAddressValid(value)
                     ? null
-                    : 'Email address must be valid ',
+                    : 'Email addres must be correctly formatted',
               ),
               SizedBox(height: 8.0),
               TextFormField(
@@ -92,6 +93,13 @@ class SignUpForm extends StatelessWidget {
                 child: const Text('SIGN IN'),
                 color: Colors.blue,
               ),
+              if (state.isSubmitting) ...[
+                const SizedBox(height: 8.0),
+                Align(
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator(),
+                ),
+              ],
             ],
           ),
         );

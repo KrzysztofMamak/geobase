@@ -17,11 +17,11 @@ class SignInForm extends StatelessWidget {
           (either) => either.fold(
             (failure) {
               FlushbarHelper.createError(
-                message: failure.map(
+                message: failure.maybeMap(
                   serverError: (_) => 'Server error',
-                  emailAlreadyInUse: (_) => 'Email already in use',
                   invalidEmailAndPasswordCombination: (_) =>
                       'Invalid email address and password combination',
+                  orElse: () => 'Something went wrong',
                 ),
               ).show(context);
             },
@@ -37,7 +37,9 @@ class SignInForm extends StatelessWidget {
       },
       builder: (context, state) {
         return Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: state.showErrorMessages
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
           child: ListView(
             padding: const EdgeInsets.all(8.0),
             children: [
@@ -52,7 +54,7 @@ class SignInForm extends StatelessWidget {
                     .add(SignInFormEvent.emailAddressChanged(value)),
                 validator: (value) => Validators.isEmailAddressValid(value)
                     ? null
-                    : 'Email address must be valid ',
+                    : 'Email addres must be correctly formatted',
               ),
               SizedBox(height: 8.0),
               TextFormField(
@@ -90,6 +92,13 @@ class SignInForm extends StatelessWidget {
                 child: Text('FORGOT PASSWORD'),
                 color: Colors.blue,
               ),
+              if (state.isSubmitting) ...[
+                const SizedBox(height: 8.0),
+                Align(
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator(),
+                ),
+              ],
             ],
           ),
         );

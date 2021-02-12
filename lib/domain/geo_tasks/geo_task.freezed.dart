@@ -20,6 +20,7 @@ class _$GeoTaskTearOff {
   _GeoTask call(
       {@required String id,
       @required int number,
+      @required int year,
       @required Address address,
       @required String investor,
       @required DateTime received,
@@ -32,6 +33,7 @@ class _$GeoTaskTearOff {
     return _GeoTask(
       id: id,
       number: number,
+      year: year,
       address: address,
       investor: investor,
       received: received,
@@ -58,6 +60,7 @@ const $GeoTask = _$GeoTaskTearOff();
 mixin _$GeoTask {
   String get id;
   int get number;
+  int get year;
   Address get address;
   String get investor;
   DateTime get received;
@@ -80,6 +83,7 @@ abstract class $GeoTaskCopyWith<$Res> {
   $Res call(
       {String id,
       int number,
+      int year,
       Address address,
       String investor,
       DateTime received,
@@ -105,6 +109,7 @@ class _$GeoTaskCopyWithImpl<$Res> implements $GeoTaskCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object number = freezed,
+    Object year = freezed,
     Object address = freezed,
     Object investor = freezed,
     Object received = freezed,
@@ -118,6 +123,7 @@ class _$GeoTaskCopyWithImpl<$Res> implements $GeoTaskCopyWith<$Res> {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       number: number == freezed ? _value.number : number as int,
+      year: year == freezed ? _value.year : year as int,
       address: address == freezed ? _value.address : address as Address,
       investor: investor == freezed ? _value.investor : investor as String,
       received: received == freezed ? _value.received : received as DateTime,
@@ -150,6 +156,7 @@ abstract class _$GeoTaskCopyWith<$Res> implements $GeoTaskCopyWith<$Res> {
   $Res call(
       {String id,
       int number,
+      int year,
       Address address,
       String investor,
       DateTime received,
@@ -177,6 +184,7 @@ class __$GeoTaskCopyWithImpl<$Res> extends _$GeoTaskCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object number = freezed,
+    Object year = freezed,
     Object address = freezed,
     Object investor = freezed,
     Object received = freezed,
@@ -190,6 +198,7 @@ class __$GeoTaskCopyWithImpl<$Res> extends _$GeoTaskCopyWithImpl<$Res>
     return _then(_GeoTask(
       id: id == freezed ? _value.id : id as String,
       number: number == freezed ? _value.number : number as int,
+      year: year == freezed ? _value.year : year as int,
       address: address == freezed ? _value.address : address as Address,
       investor: investor == freezed ? _value.investor : investor as String,
       received: received == freezed ? _value.received : received as DateTime,
@@ -211,6 +220,7 @@ class _$_GeoTask implements _GeoTask {
   const _$_GeoTask(
       {@required this.id,
       @required this.number,
+      @required this.year,
       @required this.address,
       @required this.investor,
       @required this.received,
@@ -222,6 +232,7 @@ class _$_GeoTask implements _GeoTask {
       @required this.isDone})
       : assert(id != null),
         assert(number != null),
+        assert(year != null),
         assert(address != null),
         assert(investor != null),
         assert(received != null),
@@ -239,6 +250,8 @@ class _$_GeoTask implements _GeoTask {
   final String id;
   @override
   final int number;
+  @override
+  final int year;
   @override
   final Address address;
   @override
@@ -260,7 +273,7 @@ class _$_GeoTask implements _GeoTask {
 
   @override
   String toString() {
-    return 'GeoTask(id: $id, number: $number, address: $address, investor: $investor, received: $received, marked: $marked, measured: $measured, done: $done, isMarked: $isMarked, isMeasured: $isMeasured, isDone: $isDone)';
+    return 'GeoTask(id: $id, number: $number, year: $year, address: $address, investor: $investor, received: $received, marked: $marked, measured: $measured, done: $done, isMarked: $isMarked, isMeasured: $isMeasured, isDone: $isDone)';
   }
 
   @override
@@ -271,6 +284,8 @@ class _$_GeoTask implements _GeoTask {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
+            (identical(other.year, year) ||
+                const DeepCollectionEquality().equals(other.year, year)) &&
             (identical(other.address, address) ||
                 const DeepCollectionEquality()
                     .equals(other.address, address)) &&
@@ -302,6 +317,7 @@ class _$_GeoTask implements _GeoTask {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(number) ^
+      const DeepCollectionEquality().hash(year) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(investor) ^
       const DeepCollectionEquality().hash(received) ^
@@ -327,6 +343,7 @@ abstract class _GeoTask implements GeoTask {
   const factory _GeoTask(
       {@required String id,
       @required int number,
+      @required int year,
       @required Address address,
       @required String investor,
       @required DateTime received,
@@ -343,6 +360,8 @@ abstract class _GeoTask implements GeoTask {
   String get id;
   @override
   int get number;
+  @override
+  int get year;
   @override
   Address get address;
   @override

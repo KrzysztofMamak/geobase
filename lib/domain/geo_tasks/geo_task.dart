@@ -10,6 +10,7 @@ abstract class GeoTask with _$GeoTask {
   const factory GeoTask({
     @required String id,
     @required int number,
+    @required int year,
     @required Address address,
     @required String investor,
     @required DateTime received,

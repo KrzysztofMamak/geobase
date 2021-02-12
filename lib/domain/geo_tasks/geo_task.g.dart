@@ -10,6 +10,7 @@ _$_GeoTask _$_$_GeoTaskFromJson(Map<String, dynamic> json) {
   return _$_GeoTask(
     id: json['id'] as String,
     number: json['number'] as int,
+    year: json['year'] as int,
     address: json['address'] == null
         ? null
         : Address.fromJson(json['address'] as Map<String, dynamic>),
@@ -34,6 +35,7 @@ Map<String, dynamic> _$_$_GeoTaskToJson(_$_GeoTask instance) =>
     <String, dynamic>{
       'id': instance.id,
       'number': instance.number,
+      'year': instance.year,
       'address': instance.address,
       'investor': instance.investor,
       'received': instance.received?.toIso8601String(),

@@ -16,5 +16,9 @@ abstract class IAuthFacade {
     @required String password,
   });
 
+  Future<Either<AuthFailure, Unit>> sendPasswordResetEmail({
+    @required String emailAddress,
+  });
+
   Future<void> signOut();
 }

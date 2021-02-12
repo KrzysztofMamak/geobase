@@ -37,13 +37,14 @@ GetIt $initGetIt(
       () => firebaseInjectionModule.firebaseFirestore);
   gh.lazySingleton<FirebaseStorage>(
       () => firebaseInjectionModule.firebaseStorage);
-  gh.factory<ForgotPasswordFormBloc>(() => ForgotPasswordFormBloc());
   gh.lazySingleton<IAuthFacade>(() => FirebaseAuthFacade(get<FirebaseAuth>()));
   gh.lazySingleton<IGeoTaskRepository>(
       () => GeoTaskRepository(get<FirebaseFirestore>()));
   gh.factory<SignInFormBloc>(() => SignInFormBloc(get<IAuthFacade>()));
   gh.factory<SignUpFormBloc>(() => SignUpFormBloc(get<IAuthFacade>()));
   gh.factory<AuthBloc>(() => AuthBloc(get<IAuthFacade>()));
+  gh.factory<ForgotPasswordFormBloc>(
+      () => ForgotPasswordFormBloc(get<IAuthFacade>()));
   gh.factory<GeoTaskActorBloc>(
       () => GeoTaskActorBloc(get<IGeoTaskRepository>()));
   gh.factory<GeoTaskWatcherBloc>(
