@@ -1,11 +1,8 @@
 import 'package:another_flushbar/flushbar_helper.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geobase/application/auth/auth_bloc.dart';
 import 'package:geobase/application/sign_up_form/sign_up_form_bloc.dart';
 import 'package:geobase/domain/core/validators.dart';
-import 'package:geobase/presentation/routes/router.gr.dart';
 
 class SignUpForm extends StatelessWidget {
   @override

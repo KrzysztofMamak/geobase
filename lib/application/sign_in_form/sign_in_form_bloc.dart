@@ -41,9 +41,6 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
             Validators.isEmailAddressValid(state.emailAddress);
         final isPasswordValid = Validators.isPasswordValid(state.password);
 
-        print('email: ${state.emailAddress} $isEmailAddressValid');
-        print('password: ${state.password} $isPasswordValid');
-
         if (isEmailAddressValid && isPasswordValid) {
           yield state.copyWith(
             isSubmitting: true,

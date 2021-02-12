@@ -23,10 +23,10 @@ class _$GeoTaskTearOff {
       @required int year,
       @required Address address,
       @required String investor,
-      @required DateTime received,
-      @required DateTime marked,
-      @required DateTime measured,
-      @required DateTime done,
+      @required String received,
+      @required String marked,
+      @required String measured,
+      @required String done,
       @required bool isMarked,
       @required bool isMeasured,
       @required bool isDone}) {
@@ -63,10 +63,10 @@ mixin _$GeoTask {
   int get year;
   Address get address;
   String get investor;
-  DateTime get received;
-  DateTime get marked;
-  DateTime get measured;
-  DateTime get done;
+  String get received;
+  String get marked;
+  String get measured;
+  String get done;
   bool get isMarked;
   bool get isMeasured;
   bool get isDone;
@@ -86,10 +86,10 @@ abstract class $GeoTaskCopyWith<$Res> {
       int year,
       Address address,
       String investor,
-      DateTime received,
-      DateTime marked,
-      DateTime measured,
-      DateTime done,
+      String received,
+      String marked,
+      String measured,
+      String done,
       bool isMarked,
       bool isMeasured,
       bool isDone});
@@ -126,10 +126,10 @@ class _$GeoTaskCopyWithImpl<$Res> implements $GeoTaskCopyWith<$Res> {
       year: year == freezed ? _value.year : year as int,
       address: address == freezed ? _value.address : address as Address,
       investor: investor == freezed ? _value.investor : investor as String,
-      received: received == freezed ? _value.received : received as DateTime,
-      marked: marked == freezed ? _value.marked : marked as DateTime,
-      measured: measured == freezed ? _value.measured : measured as DateTime,
-      done: done == freezed ? _value.done : done as DateTime,
+      received: received == freezed ? _value.received : received as String,
+      marked: marked == freezed ? _value.marked : marked as String,
+      measured: measured == freezed ? _value.measured : measured as String,
+      done: done == freezed ? _value.done : done as String,
       isMarked: isMarked == freezed ? _value.isMarked : isMarked as bool,
       isMeasured:
           isMeasured == freezed ? _value.isMeasured : isMeasured as bool,
@@ -159,10 +159,10 @@ abstract class _$GeoTaskCopyWith<$Res> implements $GeoTaskCopyWith<$Res> {
       int year,
       Address address,
       String investor,
-      DateTime received,
-      DateTime marked,
-      DateTime measured,
-      DateTime done,
+      String received,
+      String marked,
+      String measured,
+      String done,
       bool isMarked,
       bool isMeasured,
       bool isDone});
@@ -201,10 +201,10 @@ class __$GeoTaskCopyWithImpl<$Res> extends _$GeoTaskCopyWithImpl<$Res>
       year: year == freezed ? _value.year : year as int,
       address: address == freezed ? _value.address : address as Address,
       investor: investor == freezed ? _value.investor : investor as String,
-      received: received == freezed ? _value.received : received as DateTime,
-      marked: marked == freezed ? _value.marked : marked as DateTime,
-      measured: measured == freezed ? _value.measured : measured as DateTime,
-      done: done == freezed ? _value.done : done as DateTime,
+      received: received == freezed ? _value.received : received as String,
+      marked: marked == freezed ? _value.marked : marked as String,
+      measured: measured == freezed ? _value.measured : measured as String,
+      done: done == freezed ? _value.done : done as String,
       isMarked: isMarked == freezed ? _value.isMarked : isMarked as bool,
       isMeasured:
           isMeasured == freezed ? _value.isMeasured : isMeasured as bool,
@@ -257,13 +257,13 @@ class _$_GeoTask implements _GeoTask {
   @override
   final String investor;
   @override
-  final DateTime received;
+  final String received;
   @override
-  final DateTime marked;
+  final String marked;
   @override
-  final DateTime measured;
+  final String measured;
   @override
-  final DateTime done;
+  final String done;
   @override
   final bool isMarked;
   @override
@@ -346,10 +346,10 @@ abstract class _GeoTask implements GeoTask {
       @required int year,
       @required Address address,
       @required String investor,
-      @required DateTime received,
-      @required DateTime marked,
-      @required DateTime measured,
-      @required DateTime done,
+      @required String received,
+      @required String marked,
+      @required String measured,
+      @required String done,
       @required bool isMarked,
       @required bool isMeasured,
       @required bool isDone}) = _$_GeoTask;
@@ -367,13 +367,13 @@ abstract class _GeoTask implements GeoTask {
   @override
   String get investor;
   @override
-  DateTime get received;
+  String get received;
   @override
-  DateTime get marked;
+  String get marked;
   @override
-  DateTime get measured;
+  String get measured;
   @override
-  DateTime get done;
+  String get done;
   @override
   bool get isMarked;
   @override

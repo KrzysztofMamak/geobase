@@ -66,9 +66,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       await _firebaseAuth.sendPasswordResetEmail(email: emailAddress);
       return right(unit);
     } on FirebaseAuthException catch (e) {
-      print('eeeeeeeeeeeeeeeeeeeeecodeeeeeeeeeeeee ${e.code}');
       if (e.code == 'user-not-found') {
-        print('f4qf4awgbrabrahtnaaaaaaaaaaaaaaaaaaaaaa');
         return left(const AuthFailure.emailNotExist());
       } else {
         return left(const AuthFailure.serverError());

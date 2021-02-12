@@ -20,7 +20,7 @@ class GeoTaskRepository implements IGeoTaskRepository {
         .snapshots()
         .map(
           (snapshot) => right<GeoTaskFailure, List<GeoTask>>(
-            snapshot.docs.map((doc) => GeoTask.fromFirestore(doc)),
+            snapshot.docs.map((doc) => GeoTask.fromFirestore(doc)).toList(),
           ),
         )
         .onErrorReturnWith(
@@ -152,8 +152,7 @@ class GeoTaskRepository implements IGeoTaskRepository {
         return left(const GeoTaskFailure.insufficientPermissions());
       } else if (e.message.contains('NOT_FOUND')) {
         return left(const GeoTaskFailure.unableToUpdate());
-      }
-      else {
+      } else {
         return left(const GeoTaskFailure.unexpected());
       }
     }

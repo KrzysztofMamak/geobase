@@ -48,8 +48,6 @@ class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
         final isPasswordValid = Validators.isPasswordValid(state.password);
         final arePasswordsMatch = state.password == state.repeatedPassword;
 
-        print('Passwords match: $arePasswordsMatch');
-
         if (isEmailAddressValid && isPasswordValid && arePasswordsMatch) {
           yield state.copyWith(
             isSubmitting: true,
