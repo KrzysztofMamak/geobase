@@ -10,6 +10,7 @@ class ForgotPasswordPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Forgot password'),
+        centerTitle: true,
       ),
       body: BlocProvider(
         create: (context) => getIt<ForgotPasswordFormBloc>(),

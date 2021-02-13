@@ -10,6 +10,7 @@ class SignUpPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign up'),
+        centerTitle: true,
       ),
       body: BlocProvider(
         create: (context) => getIt<SignUpFormBloc>(),

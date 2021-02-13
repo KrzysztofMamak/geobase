@@ -46,6 +46,7 @@ class GeoTasksOverviewPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Geo Tasks'),
+            centerTitle: true,
             leading: IconButton(
               icon: const Icon(Icons.exit_to_app),
               onPressed: () =>

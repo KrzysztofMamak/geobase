@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geobase/application/geo_tasks/geo_task_watcher/geo_task_watcher_bloc.dart';
+import 'package:geobase/presentation/geo_tasks_overview/widgets/geo_task_tile.dart';
 
 class GeoTasksOverviewBody extends StatelessWidget {
   @override
@@ -14,7 +15,13 @@ class GeoTasksOverviewBody extends StatelessWidget {
           ),
           loadSuccess: (state) {
             print(state.geoTasks.toString());
-            return Container();
+            return ListView.builder(
+              itemCount: state.geoTasks.length,
+              itemBuilder: (context, index) {
+                final geoTask = state.geoTasks[index];
+                return GeoTaskTile(geoTask: geoTask);
+              },
+            );
           },
           loadFailure: (state) {
             print(state.geoTaskFailure.toString());
