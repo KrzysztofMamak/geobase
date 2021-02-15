@@ -6,15 +6,56 @@ class GeoTaskTile extends StatelessWidget {
 
   const GeoTaskTile({
     Key key,
-    @required this.geoTask,
+    this.geoTask,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text('${geoTask.number}'),
-      subtitle: Text('${geoTask.address.city} ${geoTask.address.street}'),
-      leading: Icon(Icons.golf_course),
+    return Container(
+      height: 90.0,
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.0,
+        vertical: 8.0,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: <Color>[
+            Color(0xFFFF961F),
+            Colors.white,
+          ],
+          stops: [
+            0.0,
+            0.4,
+          ],
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Text(
+                '${geoTask.number}',
+              ),
+              SizedBox(width: 8.0),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('${geoTask.address.city} ul. ${geoTask.address.street}'),
+                  SizedBox(height: 4.0),
+                  Text('${geoTask.investor}'),
+                ],
+              ),
+            ],
+          ),
+          Icon(Icons.done),
+        ],
+      ),
     );
   }
 }
