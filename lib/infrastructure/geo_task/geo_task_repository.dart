@@ -25,7 +25,7 @@ class GeoTaskRepository implements IGeoTaskRepository {
         )
         .onErrorReturnWith(
       (e) {
-        if (e is FirebaseException && e.message.contains('PERMISSION_DENIED')) {
+        if (e is FirebaseException && e.message.contains('permission-denied')) {
           return left(const GeoTaskFailure.insufficientPermissions());
         } else {
           return left(const GeoTaskFailure.unexpected());
@@ -36,77 +36,17 @@ class GeoTaskRepository implements IGeoTaskRepository {
 
   @override
   Stream<Either<GeoTaskFailure, List<GeoTask>>> watchDone() async* {
-    final geoTaskCollection = _firebaseFirestore.collection('geo_tasks');
-    yield* geoTaskCollection
-        .orderBy('number')
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.docs.map((doc) => GeoTask.fromFirestore(doc)),
-        )
-        .map(
-          (geoTasks) => right<GeoTaskFailure, List<GeoTask>>(
-            geoTasks.where((geoTask) => geoTask.isDone),
-          ),
-        )
-        .onErrorReturnWith(
-      (e) {
-        if (e is FirebaseException && e.message.contains('PERMISSION_DENIED')) {
-          return left(const GeoTaskFailure.insufficientPermissions());
-        } else {
-          return left(const GeoTaskFailure.unexpected());
-        }
-      },
-    );
+    yield* _watchFiltered((geoTask) => geoTask.isDone);
   }
 
   @override
   Stream<Either<GeoTaskFailure, List<GeoTask>>> watchMarked() async* {
-    final geoTaskCollection = _firebaseFirestore.collection('geo_tasks');
-    yield* geoTaskCollection
-        .orderBy('number')
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.docs.map((doc) => GeoTask.fromFirestore(doc)),
-        )
-        .map(
-          (geoTasks) => right<GeoTaskFailure, List<GeoTask>>(
-            geoTasks.where((geoTask) => geoTask.isMarked),
-          ),
-        )
-        .onErrorReturnWith(
-      (e) {
-        if (e is FirebaseException && e.message.contains('PERMISSION_DENIED')) {
-          return left(const GeoTaskFailure.insufficientPermissions());
-        } else {
-          return left(const GeoTaskFailure.unexpected());
-        }
-      },
-    );
+    yield* _watchFiltered((geoTask) => geoTask.isMarked);
   }
 
   @override
   Stream<Either<GeoTaskFailure, List<GeoTask>>> watchMeasured() async* {
-    final geoTaskCollection = _firebaseFirestore.collection('geo_tasks');
-    yield* geoTaskCollection
-        .orderBy('number')
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.docs.map((doc) => GeoTask.fromFirestore(doc)),
-        )
-        .map(
-          (geoTasks) => right<GeoTaskFailure, List<GeoTask>>(
-            geoTasks.where((geoTask) => geoTask.isMeasured),
-          ),
-        )
-        .onErrorReturnWith(
-      (e) {
-        if (e is FirebaseException && e.message.contains('PERMISSION_DENIED')) {
-          return left(const GeoTaskFailure.insufficientPermissions());
-        } else {
-          return left(const GeoTaskFailure.unexpected());
-        }
-      },
-    );
+    yield* _watchFiltered((geoTask) => geoTask.isMeasured);
   }
 
   @override
@@ -116,7 +56,7 @@ class GeoTaskRepository implements IGeoTaskRepository {
       await geoTaskCollection.doc(geoTask.id).set(geoTask.toJson());
       return right(unit);
     } on FirebaseException catch (e) {
-      if (e.message.contains('PERMISSION_DENIED')) {
+      if (e.message.contains('permission-denied')) {
         return left(const GeoTaskFailure.insufficientPermissions());
       } else {
         return left(const GeoTaskFailure.unexpected());
@@ -131,9 +71,9 @@ class GeoTaskRepository implements IGeoTaskRepository {
       await geoTaskCollection.doc(geoTask.id).delete();
       return right(unit);
     } on FirebaseException catch (e) {
-      if (e.message.contains('PERMISSION_DENIED')) {
+      if (e.message.contains('permission-denied')) {
         return left(const GeoTaskFailure.insufficientPermissions());
-      } else if (e.message.contains('NOT_FOUND')) {
+      } else if (e.message.contains('not-found')) {
         return left(const GeoTaskFailure.unableToDelete());
       } else {
         return left(const GeoTaskFailure.unexpected());
@@ -148,13 +88,38 @@ class GeoTaskRepository implements IGeoTaskRepository {
       await geoTaskCollection.doc(geoTask.id).update(geoTask.toJson());
       return right(unit);
     } on FirebaseException catch (e) {
-      if (e.message.contains('PERMISSION_DENIED')) {
+      if (e.message.contains('permission-denied')) {
         return left(const GeoTaskFailure.insufficientPermissions());
-      } else if (e.message.contains('NOT_FOUND')) {
+      } else if (e.message.contains('not-found')) {
         return left(const GeoTaskFailure.unableToUpdate());
       } else {
         return left(const GeoTaskFailure.unexpected());
       }
     }
+  }
+
+  Stream<Either<GeoTaskFailure, List<GeoTask>>> _watchFiltered(
+      Function(GeoTask) condition) async* {
+    final geoTaskCollection = _firebaseFirestore.collection('geo_tasks');
+    yield* geoTaskCollection
+        .orderBy('number')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs.map((doc) => GeoTask.fromFirestore(doc)),
+        )
+        .map(
+          (geoTasks) => right<GeoTaskFailure, List<GeoTask>>(
+            geoTasks.where(condition).toList(),
+          ),
+        )
+        .onErrorReturnWith(
+      (e) {
+        if (e is FirebaseException && e.message.contains('permission-denied')) {
+          return left(const GeoTaskFailure.insufficientPermissions());
+        } else {
+          return left(const GeoTaskFailure.unexpected());
+        }
+      },
+    );
   }
 }
