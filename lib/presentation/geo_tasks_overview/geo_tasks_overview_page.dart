@@ -32,16 +32,6 @@ class GeoTasksOverviewPage extends StatelessWidget {
               );
             },
           ),
-          // BlocListener<GeoTaskWatcherBloc, GeoTaskWatcherState>(
-          //   listener: (context, state) {
-          //     state.map(
-          //       initial: (_) {},
-          //       loadInProgress: (_) {},
-          //       loadSuccess: (state) => print(state.geoTasks.toString()),
-          //       loadFailure: (_) {},
-          //     );
-          //   },
-          // ),
         ],
         child: Scaffold(
           appBar: AppBar(
@@ -52,10 +42,50 @@ class GeoTasksOverviewPage extends StatelessWidget {
               onPressed: () =>
                   context.read<AuthBloc>().add(const AuthEvent.signedOut()),
             ),
+            // actions: <Widget>[
+            //   _buildPopupMenuButton(context),
+            // ],
           ),
           body: GeoTasksOverviewBody(),
         ),
       ),
     );
   }
+
+  // Widget _buildPopupMenuButton(BuildContext context) {
+  //   return PopupMenuButton(
+  //     child: Icon(Icons.filter_alt),
+  //     onSelected: (value) {
+  //       GeoTaskWatcherEvent event;
+  //       if (value == 0) {
+  //         event = GeoTaskWatcherEvent.watchAllStarted();
+  //       } else if (value == 1) {
+  //         event = GeoTaskWatcherEvent.watchMarkedStarted();
+  //       } else if (value == 2) {
+  //         event = GeoTaskWatcherEvent.watchMeasuredStarted();
+  //       } else if (value == 3) {
+  //         event = GeoTaskWatcherEvent.watchDoneStarted();
+  //       }
+  //       context.read<GeoTaskWatcherBloc>().add(event);
+  //     },
+  //     itemBuilder: (_) => [
+  //       PopupMenuItem(
+  //         value: 'All',
+  //         child: Text('All'),
+  //       ),
+  //       PopupMenuItem(
+  //         value: 'Marked',
+  //         child: Text('Marked'),
+  //       ),
+  //       PopupMenuItem(
+  //         value: 'Measured',
+  //         child: Text('Measured'),
+  //       ),
+  //       PopupMenuItem(
+  //         value: 'Done',
+  //         child: Text('Done'),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

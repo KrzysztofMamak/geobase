@@ -9,7 +9,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/geo_tasks/geo_task.dart';
 import '../forgot_password/forgot_password_page.dart';
+import '../geo_task_details/geo_task_details_page.dart';
 import '../geo_tasks_overview/geo_tasks_overview_page.dart';
 import '../sign_in/sign_in_page.dart';
 import '../sign_up/sign_up_page.dart';
@@ -21,12 +23,14 @@ class Routes {
   static const String signUpPage = '/sign-up-page';
   static const String forgotPasswordPage = '/forgot-password-page';
   static const String geoTasksOverviewPage = '/geo-tasks-overview-page';
+  static const String geoTaskDetailsPage = '/geo-task-details-page';
   static const all = <String>{
     splashPage,
     signInPage,
     signUpPage,
     forgotPasswordPage,
     geoTasksOverviewPage,
+    geoTaskDetailsPage,
   };
 }
 
@@ -39,6 +43,7 @@ class AppRouter extends RouterBase {
     RouteDef(Routes.signUpPage, page: SignUpPage),
     RouteDef(Routes.forgotPasswordPage, page: ForgotPasswordPage),
     RouteDef(Routes.geoTasksOverviewPage, page: GeoTasksOverviewPage),
+    RouteDef(Routes.geoTaskDetailsPage, page: GeoTaskDetailsPage),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -73,6 +78,18 @@ class AppRouter extends RouterBase {
         settings: data,
       );
     },
+    GeoTaskDetailsPage: (data) {
+      final args = data.getArgs<GeoTaskDetailsPageArguments>(
+        orElse: () => GeoTaskDetailsPageArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => GeoTaskDetailsPage(
+          key: args.key,
+          geoTask: args.geoTask,
+        ),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -92,4 +109,24 @@ extension AppRouterExtendedNavigatorStateX on ExtendedNavigatorState {
 
   Future<dynamic> pushGeoTasksOverviewPage() =>
       push<dynamic>(Routes.geoTasksOverviewPage);
+
+  Future<dynamic> pushGeoTaskDetailsPage({
+    Key key,
+    GeoTask geoTask,
+  }) =>
+      push<dynamic>(
+        Routes.geoTaskDetailsPage,
+        arguments: GeoTaskDetailsPageArguments(key: key, geoTask: geoTask),
+      );
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// GeoTaskDetailsPage arguments holder class
+class GeoTaskDetailsPageArguments {
+  final Key key;
+  final GeoTask geoTask;
+  GeoTaskDetailsPageArguments({this.key, this.geoTask});
 }
