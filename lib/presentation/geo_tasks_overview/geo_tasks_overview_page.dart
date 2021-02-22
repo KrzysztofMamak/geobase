@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geobase/application/auth/auth_bloc.dart';
 import 'package:geobase/application/geo_tasks/geo_task_actor/geo_task_actor_bloc.dart';
 import 'package:geobase/application/geo_tasks/geo_task_watcher/geo_task_watcher_bloc.dart';
+import 'package:geobase/domain/geo_tasks/geo_tasks_filter.dart';
 import 'package:geobase/injection.dart';
 import 'package:geobase/presentation/routes/router.gr.dart';
 import 'package:geobase/presentation/geo_tasks_overview/widgets/geo_tasks_overview_body.dart';
@@ -42,9 +43,9 @@ class GeoTasksOverviewPage extends StatelessWidget {
               onPressed: () =>
                   context.read<AuthBloc>().add(const AuthEvent.signedOut()),
             ),
-            // actions: <Widget>[
-            //   _buildPopupMenuButton(context),
-            // ],
+            actions: <Widget>[
+              _buildPopupMenuButton(context),
+            ],
           ),
           body: GeoTasksOverviewBody(),
         ),
@@ -52,40 +53,24 @@ class GeoTasksOverviewPage extends StatelessWidget {
     );
   }
 
-  // Widget _buildPopupMenuButton(BuildContext context) {
-  //   return PopupMenuButton(
-  //     child: Icon(Icons.filter_alt),
-  //     onSelected: (value) {
-  //       GeoTaskWatcherEvent event;
-  //       if (value == 0) {
-  //         event = GeoTaskWatcherEvent.watchAllStarted();
-  //       } else if (value == 1) {
-  //         event = GeoTaskWatcherEvent.watchMarkedStarted();
-  //       } else if (value == 2) {
-  //         event = GeoTaskWatcherEvent.watchMeasuredStarted();
-  //       } else if (value == 3) {
-  //         event = GeoTaskWatcherEvent.watchDoneStarted();
-  //       }
-  //       context.read<GeoTaskWatcherBloc>().add(event);
-  //     },
-  //     itemBuilder: (_) => [
-  //       PopupMenuItem(
-  //         value: 'All',
-  //         child: Text('All'),
-  //       ),
-  //       PopupMenuItem(
-  //         value: 'Marked',
-  //         child: Text('Marked'),
-  //       ),
-  //       PopupMenuItem(
-  //         value: 'Measured',
-  //         child: Text('Measured'),
-  //       ),
-  //       PopupMenuItem(
-  //         value: 'Done',
-  //         child: Text('Done'),
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget _buildPopupMenuButton(BuildContext context) {
+    return Builder(
+      builder: (context) => PopupMenuButton(
+        child: Icon(Icons.filter_alt),
+        onSelected: (value) {
+          context.read<GeoTaskWatcherBloc>().add(value);
+        },
+        itemBuilder: (_) {
+          return geoTasksFilters.entries
+              .map(
+                (entry) => PopupMenuItem(
+                  value: entry.value,
+                  child: Text(entry.key.toString()),
+                ),
+              )
+              .toList();
+        },
+      ),
+    );
+  }
 }
