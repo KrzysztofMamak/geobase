@@ -8,6 +8,7 @@ import 'package:geobase/domain/geo_tasks/geo_tasks_filter.dart';
 import 'package:geobase/injection.dart';
 import 'package:geobase/presentation/routes/router.gr.dart';
 import 'package:geobase/presentation/geo_tasks_overview/widgets/geo_tasks_overview_body.dart';
+import 'package:geobase/domain/geo_tasks/geo_task_progress.dart';
 
 class GeoTasksOverviewPage extends StatelessWidget {
   @override
@@ -65,7 +66,7 @@ class GeoTasksOverviewPage extends StatelessWidget {
               .map(
                 (entry) => PopupMenuItem(
                   value: entry.value,
-                  child: Text(entry.key.toString()),
+                  child: Text(entry.key.name),
                 ),
               )
               .toList();

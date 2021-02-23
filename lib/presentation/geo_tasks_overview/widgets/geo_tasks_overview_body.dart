@@ -14,7 +14,6 @@ class GeoTasksOverviewBody extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
           loadSuccess: (state) {
-            print(state.geoTasks.toString());
             return ListView.builder(
               itemCount: state.geoTasks.length,
               itemBuilder: (context, index) {
