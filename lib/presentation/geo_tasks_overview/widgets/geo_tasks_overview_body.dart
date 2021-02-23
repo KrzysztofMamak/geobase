@@ -23,7 +23,6 @@ class GeoTasksOverviewBody extends StatelessWidget {
             );
           },
           loadFailure: (state) {
-            print(state.geoTaskFailure.toString());
             return Container();
           },
         );

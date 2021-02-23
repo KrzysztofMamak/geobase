@@ -17,7 +17,7 @@ class GeoTaskTile extends StatelessWidget {
       child: InkWell(
         onTap: () => ExtendedNavigator.of(context).pushGeoTaskDetailsPage(geoTask: geoTask),
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 8.0,
             horizontal: 16.0,
           ),
@@ -36,28 +36,28 @@ class GeoTaskTile extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '${geoTask.number}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(width: 16.0),
+                  const SizedBox(width: 16.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         '${geoTask.address.city} ul. ${geoTask.address.street}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
                           fontSize: 14.0,
                         ),
                       ),
-                      SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
                       Text(
-                        '${geoTask.investor}',
-                        style: TextStyle(
+                        geoTask.investor,
+                        style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 13.0,
                         ),

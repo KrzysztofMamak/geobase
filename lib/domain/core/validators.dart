@@ -3,8 +3,8 @@ const emailRegex =
 
 class Validators {
   static bool isEmailAddressValid(String emailAddress) =>
-      RegExp(emailRegex).hasMatch(emailAddress) ? true : false;
+      RegExp(emailRegex).hasMatch(emailAddress);
 
   static bool isPasswordValid(String password) =>
-      password.length >= 6 ? true : false;
+      password.length >= 6;
 }

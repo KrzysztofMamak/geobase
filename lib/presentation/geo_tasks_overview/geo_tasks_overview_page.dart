@@ -49,6 +49,10 @@ class GeoTasksOverviewPage extends StatelessWidget {
             ],
           ),
           body: GeoTasksOverviewBody(),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: const Icon(Icons.add),
+          ),
         ),
       ),
     );
@@ -57,8 +61,7 @@ class GeoTasksOverviewPage extends StatelessWidget {
   Widget _buildPopupMenuButton(BuildContext context) {
     return Builder(
       builder: (context) => PopupMenuButton(
-        child: Icon(Icons.filter_alt),
-        onSelected: (value) {
+        onSelected: (GeoTaskWatcherEvent value) {
           context.read<GeoTaskWatcherBloc>().add(value);
         },
         itemBuilder: (_) {
@@ -71,6 +74,10 @@ class GeoTasksOverviewPage extends StatelessWidget {
               )
               .toList();
         },
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.0),
+          child: Icon(Icons.filter_alt),
+        ),
       ),
     );
   }

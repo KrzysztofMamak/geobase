@@ -1,20 +1,20 @@
 enum GeoTaskProgress {
-  Received,
-  Marked,
-  Measured,
-  Done,
+  received,
+  marked,
+  measured,
+  done,
 }
 
 extension GeoTaskProgressX on GeoTaskProgress {
   String get name {
     switch (this) {
-      case GeoTaskProgress.Received:
+      case GeoTaskProgress.received:
         return 'Received';
-      case GeoTaskProgress.Marked:
+      case GeoTaskProgress.marked:
         return 'Marked';
-      case GeoTaskProgress.Measured:
+      case GeoTaskProgress.measured:
         return 'Measured';
-      case GeoTaskProgress.Done:
+      case GeoTaskProgress.done:
         return 'Done';
       default:
         return '';

@@ -20,7 +20,7 @@ class AppWidget extends StatelessWidget {
         builder: ExtendedNavigator(router: AppRouter()),
         title: 'GeoBase',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.orange,
         ),
       ),
     );

@@ -56,7 +56,7 @@ class SignInForm extends StatelessWidget {
                     ? null
                     : 'Email addres must be correctly formatted',
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.lock),
@@ -71,32 +71,31 @@ class SignInForm extends StatelessWidget {
                     ? null
                     : 'Password must have at least 6 characters',
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               FlatButton(
                 onPressed: () => context
                     .read<SignInFormBloc>()
-                    .add(SignInFormEvent.signInWithEmailAndPasswordPressed()),
-                child: const Text('SIGN IN'),
+                    .add(const SignInFormEvent.signInWithEmailAndPasswordPressed()),
                 color: Colors.blue,
+                child: const Text('SIGN IN'),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               FlatButton(
                 onPressed: () => ExtendedNavigator.of(context).pushSignUpPage(),
-                child: Text('SIGN UP'),
                 color: Colors.blue,
+                child: const Text('SIGN UP'),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               FlatButton(
                 onPressed: () =>
                     ExtendedNavigator.of(context).pushForgotPasswordPage(),
-                child: Text('FORGOT PASSWORD'),
                 color: Colors.blue,
+                child: const Text('FORGOT PASSWORD'),
               ),
               if (state.isSubmitting) ...[
                 const SizedBox(height: 8.0),
-                Align(
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator(),
+                const Align(
+                  child: CircularProgressIndicator(),
                 ),
               ],
             ],

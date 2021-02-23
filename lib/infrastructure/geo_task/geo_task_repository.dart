@@ -99,7 +99,7 @@ class GeoTaskRepository implements IGeoTaskRepository {
   }
 
   Stream<Either<GeoTaskFailure, List<GeoTask>>> _watchFiltered(
-      Function(GeoTask) condition) async* {
+      bool Function(GeoTask) condition) async* {
     final geoTaskCollection = _firebaseFirestore.collection('geo_tasks');
     yield* geoTaskCollection
         .orderBy('number')

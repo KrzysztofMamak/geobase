@@ -52,7 +52,7 @@ class SignUpForm extends StatelessWidget {
                     ? null
                     : 'Email addres must be correctly formatted',
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.lock),
@@ -67,7 +67,7 @@ class SignUpForm extends StatelessWidget {
                     ? null
                     : 'Password must have at least 6 characters',
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.lock),
@@ -82,19 +82,18 @@ class SignUpForm extends StatelessWidget {
                     ? null
                     : 'Password must have at least 6 characters',
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               FlatButton(
                 onPressed: () => context
                     .read<SignUpFormBloc>()
-                    .add(SignUpFormEvent.registerWithEmailAndPasswordPressed()),
-                child: const Text('SIGN IN'),
+                    .add(const SignUpFormEvent.registerWithEmailAndPasswordPressed()),
                 color: Colors.blue,
+                child: const Text('SIGN IN'),
               ),
               if (state.isSubmitting) ...[
                 const SizedBox(height: 8.0),
-                Align(
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator(),
+                const Align(
+                  child: CircularProgressIndicator(),
                 ),
               ],
             ],
