@@ -42,6 +42,10 @@ class ForgotPasswordForm extends StatelessWidget {
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.email),
                   labelText: 'Email address',
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 5.0),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
                 ),
                 autocorrect: false,
                 onChanged: (value) => context
@@ -52,11 +56,10 @@ class ForgotPasswordForm extends StatelessWidget {
                     : 'Email addres must be correctly formatted',
               ),
               const SizedBox(height: 8.0),
-              FlatButton(
+              ElevatedButton(
                 onPressed: () => context.read<ForgotPasswordFormBloc>().add(
                     const ForgotPasswordFormEvent.sendPasswordResetEmailPressed()),
-                color: Colors.blue,
-                child: const Text('SIGN IN'),
+                child: const Text('Sign in'),
               ),
               if (state.isSubmitting) ...[
                 const SizedBox(height: 8.0),

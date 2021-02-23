@@ -37,12 +37,16 @@ class SignUpForm extends StatelessWidget {
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
           child: ListView(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             children: [
               TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.email),
                   labelText: 'Email address',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red, width: 5.0),
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 autocorrect: false,
                 onChanged: (value) => context
@@ -52,11 +56,15 @@ class SignUpForm extends StatelessWidget {
                     ? null
                     : 'Email addres must be correctly formatted',
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.lock),
                   labelText: 'Password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red, width: 5.0),
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 autocorrect: false,
                 obscureText: true,
@@ -67,11 +75,15 @@ class SignUpForm extends StatelessWidget {
                     ? null
                     : 'Password must have at least 6 characters',
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.lock),
                   labelText: 'Repeat password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red, width: 5.0),
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 autocorrect: false,
                 obscureText: true,
@@ -82,13 +94,12 @@ class SignUpForm extends StatelessWidget {
                     ? null
                     : 'Password must have at least 6 characters',
               ),
-              const SizedBox(height: 8.0),
-              FlatButton(
-                onPressed: () => context
-                    .read<SignUpFormBloc>()
-                    .add(const SignUpFormEvent.registerWithEmailAndPasswordPressed()),
-                color: Colors.blue,
-                child: const Text('SIGN IN'),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () => context.read<SignUpFormBloc>().add(
+                    const SignUpFormEvent
+                        .registerWithEmailAndPasswordPressed()),
+                child: const Text('Sign in'),
               ),
               if (state.isSubmitting) ...[
                 const SizedBox(height: 8.0),

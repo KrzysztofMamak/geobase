@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geobase/application/auth/auth_bloc.dart';
 import 'package:geobase/application/sign_in_form/sign_in_form_bloc.dart';
 import 'package:geobase/domain/core/validators.dart';
@@ -40,65 +41,87 @@ class SignInForm extends StatelessWidget {
           autovalidateMode: state.showErrorMessages
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
-          child: ListView(
-            padding: const EdgeInsets.all(8.0),
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.email),
-                  labelText: 'Email address',
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                // const Spacer(),
+                // SvgPicture.asset(
+                //   'assets/icons/compass.svg',
+                //   width: 100.0,
+                //   height: 100.0,
+                // ),
+                const Spacer(),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    labelText: 'Email address',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 5.0),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
+                  ),
+                  autocorrect: false,
+                  onChanged: (value) => context
+                      .read<SignInFormBloc>()
+                      .add(SignInFormEvent.emailAddressChanged(value)),
+                  validator: (value) => Validators.isEmailAddressValid(value)
+                      ? null
+                      : 'Email addres must be correctly formatted',
                 ),
-                autocorrect: false,
-                onChanged: (value) => context
-                    .read<SignInFormBloc>()
-                    .add(SignInFormEvent.emailAddressChanged(value)),
-                validator: (value) => Validators.isEmailAddressValid(value)
-                    ? null
-                    : 'Email addres must be correctly formatted',
-              ),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                  labelText: 'Password',
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    labelText: 'Password',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 5.0),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
+                  ),
+                  autocorrect: false,
+                  obscureText: true,
+                  onChanged: (value) => context
+                      .read<SignInFormBloc>()
+                      .add(SignInFormEvent.passwordChanged(value)),
+                  validator: (value) => Validators.isPasswordValid(value)
+                      ? null
+                      : 'Password must have at least 6 characters',
                 ),
-                autocorrect: false,
-                obscureText: true,
-                onChanged: (value) => context
-                    .read<SignInFormBloc>()
-                    .add(SignInFormEvent.passwordChanged(value)),
-                validator: (value) => Validators.isPasswordValid(value)
-                    ? null
-                    : 'Password must have at least 6 characters',
-              ),
-              const SizedBox(height: 8.0),
-              FlatButton(
-                onPressed: () => context
-                    .read<SignInFormBloc>()
-                    .add(const SignInFormEvent.signInWithEmailAndPasswordPressed()),
-                color: Colors.blue,
-                child: const Text('SIGN IN'),
-              ),
-              const SizedBox(height: 8.0),
-              FlatButton(
-                onPressed: () => ExtendedNavigator.of(context).pushSignUpPage(),
-                color: Colors.blue,
-                child: const Text('SIGN UP'),
-              ),
-              const SizedBox(height: 8.0),
-              FlatButton(
-                onPressed: () =>
-                    ExtendedNavigator.of(context).pushForgotPasswordPage(),
-                color: Colors.blue,
-                child: const Text('FORGOT PASSWORD'),
-              ),
-              if (state.isSubmitting) ...[
-                const SizedBox(height: 8.0),
-                const Align(
-                  child: CircularProgressIndicator(),
+                const SizedBox(height: 16.0),
+                InkWell(
+                  onTap: () =>
+                      ExtendedNavigator.of(context).pushForgotPasswordPage(),
+                  child: Text(
+                    'Forgot password?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () => context.read<SignInFormBloc>().add(
+                      const SignInFormEvent
+                          .signInWithEmailAndPasswordPressed()),
+                  child: const Text('Sign in'),
+                ),
+                const Spacer(),
+                if (state.isSubmitting) ...[
+                  const Align(
+                    child: CircularProgressIndicator(),
+                  ),
+                ],
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () =>
+                      ExtendedNavigator.of(context).pushSignUpPage(),
+                  child: const Text('Sign up'),
                 ),
               ],
-            ],
+            ),
           ),
         );
       },
