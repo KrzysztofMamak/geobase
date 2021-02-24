@@ -58,7 +58,6 @@ class SignInForm extends StatelessWidget {
                     prefixIcon: Icon(Icons.email),
                     labelText: 'Email address',
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 5.0),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                   ),
@@ -76,7 +75,6 @@ class SignInForm extends StatelessWidget {
                     prefixIcon: Icon(Icons.lock),
                     labelText: 'Password',
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 5.0),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                   ),
