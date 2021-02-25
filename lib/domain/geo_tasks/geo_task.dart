@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geobase/domain/geo_tasks/address.dart';
+import 'package:geobase/domain/geo_tasks/location.dart';
 
 part 'geo_task.freezed.dart';
 part 'geo_task.g.dart';
@@ -11,6 +12,7 @@ abstract class GeoTask with _$GeoTask {
     @required String id,
     @required int number,
     @required int year,
+    @required Location location,
     @required Address address,
     @required String investor,
     @required String received,
