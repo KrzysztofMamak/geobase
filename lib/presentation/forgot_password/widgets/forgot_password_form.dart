@@ -31,44 +31,66 @@ class ForgotPasswordForm extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        return Form(
-          autovalidateMode: state.showErrorMessages
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
-          child: ListView(
-            padding: const EdgeInsets.all(8.0),
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.email),
-                  labelText: 'Email address',
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 5.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                ),
-                autocorrect: false,
-                onChanged: (value) => context
-                    .read<ForgotPasswordFormBloc>()
-                    .add(ForgotPasswordFormEvent.emailAddressChanged(value)),
-                validator: (value) => Validators.isEmailAddressValid(value)
-                    ? null
-                    : 'Email addres must be correctly formatted',
-              ),
-              const SizedBox(height: 8.0),
-              ElevatedButton(
-                onPressed: () => context.read<ForgotPasswordFormBloc>().add(
-                    const ForgotPasswordFormEvent.sendPasswordResetEmailPressed()),
-                child: const Text('Sign in'),
-              ),
-              if (state.isSubmitting) ...[
-                const SizedBox(height: 8.0),
-                const Align(
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                    Colors.white.withOpacity(0.2), BlendMode.dstATop),
+                image: const AssetImage(
+                    "assets/images/background_geo_icons_no_frame.png"),
+                fit: BoxFit.cover),
+          ),
+          child: !state.isSubmitting
+              ? Form(
+                  autovalidateMode: state.showErrorMessages
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
+                  child: ListView(
+                    padding: const EdgeInsets.all(8.0),
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.email),
+                          labelText: 'Email address',
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.red, width: 5.0),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        autocorrect: false,
+                        onChanged: (value) => context
+                            .read<ForgotPasswordFormBloc>()
+                            .add(ForgotPasswordFormEvent.emailAddressChanged(
+                                value)),
+                        validator: (value) =>
+                            Validators.isEmailAddressValid(value)
+                                ? null
+                                : 'Email addres must be correctly formatted',
+                      ),
+                      const SizedBox(height: 8.0),
+                      ElevatedButton(
+                        onPressed: () => context
+                            .read<ForgotPasswordFormBloc>()
+                            .add(const ForgotPasswordFormEvent
+                                .sendPasswordResetEmailPressed()),
+                        child: const Text('Sign in'),
+                      ),
+                      if (state.isSubmitting) ...[
+                        const SizedBox(height: 8.0),
+                        const Align(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ],
+                    ],
+                  ),
+                )
+              : const Center(
                   child: CircularProgressIndicator(),
                 ),
-              ],
-            ],
-          ),
         );
       },
     );

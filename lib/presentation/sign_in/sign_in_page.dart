@@ -8,6 +8,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: const Text('Sign in'),
         centerTitle: true,

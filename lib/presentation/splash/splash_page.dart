@@ -12,16 +12,28 @@ class SplashPage extends StatelessWidget {
       listener: (context, state) {
         state.map(
           initial: (_) {},
-          authenticated: (_) => ExtendedNavigator.of(context).replace(Routes.geoTasksOverviewPage),
-          unauthenticated: (_) => ExtendedNavigator.of(context).replace(Routes.signInPage),
+          authenticated: (_) => ExtendedNavigator.of(context)
+              .replace(Routes.geoTasksOverviewPage),
+          unauthenticated: (_) =>
+              ExtendedNavigator.of(context).replace(Routes.signInPage),
         );
       },
       child: Scaffold(
-        body: Center(
-          child: SvgPicture.asset(
-            'assets/icons/compass.svg',
-            width: 150.0,
-            height: 150.0,
+        body: DecoratedBox(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                    Colors.white.withOpacity(0.2), BlendMode.dstATop),
+                image: const AssetImage(
+                    "assets/images/background_geo_icons_no_frame.png"),
+                fit: BoxFit.cover),
+          ),
+          child: Center(
+            child: SvgPicture.asset(
+              'assets/icons/compass.svg',
+              width: 150.0,
+              height: 150.0,
+            ),
           ),
         ),
       ),

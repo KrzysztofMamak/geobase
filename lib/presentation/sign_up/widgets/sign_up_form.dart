@@ -32,80 +32,105 @@ class SignUpForm extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        return Form(
-          autovalidateMode: state.showErrorMessages
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
-          child: ListView(
-            padding: const EdgeInsets.all(16.0),
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.email),
-                  labelText: 'Email address',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                    Colors.white.withOpacity(0.2), BlendMode.dstATop),
+                image: const AssetImage(
+                    "assets/images/background_geo_icons_no_frame.png"),
+                fit: BoxFit.cover),
+          ),
+          child: !state.isSubmitting
+              ? Form(
+                  autovalidateMode: state.showErrorMessages
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
+                  child: ListView(
+                    padding: const EdgeInsets.all(16.0),
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.email),
+                          labelText: 'Email address',
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        autocorrect: false,
+                        onChanged: (value) => context
+                            .read<SignUpFormBloc>()
+                            .add(SignUpFormEvent.emailAddressChanged(value)),
+                        validator: (value) =>
+                            Validators.isEmailAddressValid(value)
+                                ? null
+                                : 'Email addres must be correctly formatted',
+                      ),
+                      const SizedBox(height: 16.0),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.lock),
+                          labelText: 'Password',
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        autocorrect: false,
+                        obscureText: true,
+                        onChanged: (value) => context
+                            .read<SignUpFormBloc>()
+                            .add(SignUpFormEvent.passwordChanged(value)),
+                        validator: (value) => Validators.isPasswordValid(value)
+                            ? null
+                            : 'Password must have at least 6 characters',
+                      ),
+                      const SizedBox(height: 16.0),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.lock),
+                          labelText: 'Repeat password',
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        autocorrect: false,
+                        obscureText: true,
+                        onChanged: (value) => context
+                            .read<SignUpFormBloc>()
+                            .add(
+                                SignUpFormEvent.repeatedPasswordChanged(value)),
+                        validator: (value) => Validators.isPasswordValid(value)
+                            ? null
+                            : 'Password must have at least 6 characters',
+                      ),
+                      const SizedBox(height: 16.0),
+                      ElevatedButton(
+                        onPressed: () => context.read<SignUpFormBloc>().add(
+                            const SignUpFormEvent
+                                .registerWithEmailAndPasswordPressed()),
+                        child: const Text('Sign in'),
+                      ),
+                      if (state.isSubmitting) ...[
+                        const SizedBox(height: 8.0),
+                        const Align(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ],
+                    ],
                   ),
-                ),
-                autocorrect: false,
-                onChanged: (value) => context
-                    .read<SignUpFormBloc>()
-                    .add(SignUpFormEvent.emailAddressChanged(value)),
-                validator: (value) => Validators.isEmailAddressValid(value)
-                    ? null
-                    : 'Email addres must be correctly formatted',
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                  labelText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                ),
-                autocorrect: false,
-                obscureText: true,
-                onChanged: (value) => context
-                    .read<SignUpFormBloc>()
-                    .add(SignUpFormEvent.passwordChanged(value)),
-                validator: (value) => Validators.isPasswordValid(value)
-                    ? null
-                    : 'Password must have at least 6 characters',
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                  labelText: 'Repeat password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                ),
-                autocorrect: false,
-                obscureText: true,
-                onChanged: (value) => context
-                    .read<SignUpFormBloc>()
-                    .add(SignUpFormEvent.repeatedPasswordChanged(value)),
-                validator: (value) => Validators.isPasswordValid(value)
-                    ? null
-                    : 'Password must have at least 6 characters',
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () => context.read<SignUpFormBloc>().add(
-                    const SignUpFormEvent
-                        .registerWithEmailAndPasswordPressed()),
-                child: const Text('Sign in'),
-              ),
-              if (state.isSubmitting) ...[
-                const SizedBox(height: 8.0),
-                const Align(
+                )
+              : const Center(
                   child: CircularProgressIndicator(),
                 ),
-              ],
-            ],
-          ),
         );
       },
     );
